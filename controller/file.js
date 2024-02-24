@@ -11,8 +11,12 @@ exports.getUpload= async(req, res,next)=>{
         originalName:req.file.originalname
        }
     
-       if(req.body.password !=null || req.body.password != ""){
+       if(req.body.password != null || req.body.password !==""){
         fileData.password = await bcrypt.hash(req.body.password,10);
+       }
+
+       if(req.body.password =="" || req.body.password == null){
+        fileData.password=null
        }
     
        const file = await File.create(fileData)
